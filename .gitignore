@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+
+# scaffolding generated while driving the UI headlessly
+web/_selftest.html
+web/_probe.html

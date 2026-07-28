@@ -1,0 +1,11 @@
+{
+  "name": "coreloom",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "CORELOOM - a concurrent dataflow programming puzzle game",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/run.js"
+  }
+}

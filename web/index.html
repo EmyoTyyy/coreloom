@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CORELOOM</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230b0f13'/><path d='M8 11h6v10H8zM18 11h6v10h-6z' fill='none' stroke='%23f2a03d' stroke-width='2'/><path d='M14 16h4' stroke='%233fd2c7' stroke-width='2'/></svg>">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">
+    <span class="brand-mark">◧</span>
+    <span class="brand-name">CORELOOM</span>
+  </div>
+  <div class="topbar-mid">
+    <span id="puzzle-name">—</span>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn ghost" id="btn-fit" title="fit the board to the window (f)">fit</button>
+    <button class="btn ghost" id="btn-clear" title="remove every chip and wire">clear</button>
+    <button class="btn ghost" id="btn-export" title="copy this design to the clipboard">export</button>
+    <button class="btn ghost" id="btn-import" title="load a design code">import</button>
+    <button class="btn ghost" id="btn-isa" title="instruction set and keys (?)">manual</button>
+    <button class="btn ghost accent" id="btn-tour" title="replay the guided walkthrough">walkthrough</button>
+  </div>
+</header>
+
+<main id="shell">
+  <nav id="sidebar"></nav>
+
+  <section id="stage">
+    <div id="palette"></div>
+    <div id="board-wrap">
+      <canvas id="board"></canvas>
+    </div>
+    <div id="transport"></div>
+    <div id="editor-panel">
+      <div class="panel-head">
+        <span id="editor-title">NO CORE SELECTED</span>
+        <span class="panel-sub">double-click a core to jump here</span>
+      </div>
+      <div id="editor-host"></div>
+    </div>
+  </section>
+
+  <aside id="rail">
+    <div id="brief" class="rail-block"></div>
+    <div id="streams" class="rail-block grow"></div>
+    <div id="inspector" class="rail-block"></div>
+  </aside>
+</main>
+
+<div id="modal">
+  <div id="modal-card"></div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

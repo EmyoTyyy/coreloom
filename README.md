@@ -50,7 +50,7 @@ the full instruction set.
 ## Running it locally
 
 ```
-git clone <this repo>
+git clone https://github.com/emyotyyy/coreloom.git
 cd coreloom
 npm start          # http://localhost:7331
 ```
@@ -160,3 +160,7 @@ The game is static and relative-pathed, so it deploys to GitHub Pages as-is.
 The included workflow runs the tests and then publishes `web/`, so a broken
 engine never reaches the live site. Enable it under
 **Settings → Pages → Source: GitHub Actions**.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

@@ -112,6 +112,12 @@ button { font-family: inherit; font-size: inherit; color: inherit; cursor: point
 }
 .pal-btn:hover { border-color: #2c3d4a; color: var(--text); }
 .pal-btn.armed { border-color: var(--accent); color: var(--accent); background: #1c1610; }
+.pal-btn.fresh { border-color: #2f5a4a; color: var(--text); }
+.pal-new {
+  padding: 1px 4px; border-radius: 2px;
+  background: var(--good); color: #07110a;
+  font-size: 8px; font-weight: 700; letter-spacing: .6px;
+}
 .pal-dot { width: 8px; height: 8px; border-radius: 2px; }
 .pal-core { background: #f2a03d; }
 .pal-stack { background: #8b7ee8; }

@@ -37,16 +37,20 @@ export function renderAssignmentList(host, puzzles, currentId, onPick) {
 export function renderPalette(host, puzzle, armed, onArm) {
   clear(host);
   const allowed = puzzle.allowed || PLACEABLE_TYPES;
+  const fresh = new Set(puzzle.newChips || []);
   for (const type of PLACEABLE_TYPES) {
     if (!allowed.includes(type)) continue;
     const def = CHIP_TYPES[type];
+    const isNew = fresh.has(type) && type !== 'CORE';
     host.append(el('button', {
-      class: `pal-btn${armed === type ? ' armed' : ''}`,
+      class: `pal-btn${armed === type ? ' armed' : ''}${isNew ? ' fresh' : ''}`,
       title: `${def.blurb}\n\nClick to arm, then click an empty cell.`,
       onclick: () => onArm(armed === type ? null : type),
     }, [
       el('span', { class: `pal-dot pal-${type.toLowerCase()}` }),
       el('span', { text: def.label }),
+      // this assignment is where the chip becomes available, so say so
+      isNew ? el('span', { class: 'pal-new', text: 'NEW' }) : null,
     ]));
   }
 

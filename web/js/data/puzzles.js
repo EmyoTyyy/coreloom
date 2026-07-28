@@ -139,6 +139,7 @@ export const PUZZLE_DEFS = [
     group: 'CONTROL',
     brief: 'Two streams arrive in step. Emit whichever value of each pair is larger. Ties emit that value once.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE'],
     par: { cycles: 124, chips: 3 },
     hints: [
       'Comparing two values consumes both of them. Send a copy of each somewhere safe before you compare.',
@@ -165,6 +166,7 @@ export const PUZZLE_DEFS = [
       'Both output docks must receive an identical copy of the whole input stream. ' +
       'A SPLIT chip holds each value until every wired output has taken it.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT'],
     par: { cycles: 36, chips: 1 },
     hints: ['A single SPLIT with two wired outputs solves this with no CORE at all.'],
     streams: (rng) => {
@@ -183,6 +185,7 @@ export const PUZZLE_DEFS = [
       'Two streams arrive in step. Interleave them into one: the first value of IN.A, then the first of IN.B, ' +
       'then the second of IN.A, and so on.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT'],
     par: { cycles: 48, chips: 1 },
     hints: ['Reading alternately from two sides in a loop is all this needs.'],
     streams: (rng) => {
@@ -201,6 +204,7 @@ export const PUZZLE_DEFS = [
       'Route each value by sign: strictly positive values to OUT.HI, everything else to OUT.LO. ' +
       'Order within each output stream must match the order of arrival.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT', 'FILTER'],
     par: { cycles: 40, chips: 1 },
     hints: [
       'A FILTER chip compares each value against a constant and sends matches east, the rest south. Click it to configure the test.',
@@ -222,6 +226,7 @@ export const PUZZLE_DEFS = [
       'Only values that are exact multiples of three may reach OUT.A. Everything else must be discarded — ' +
       'and discarding still has to happen, or the line backs up.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT', 'FILTER', 'SINK'],
     par: { cycles: 48, chips: 2 },
     hints: [
       'The FILTER "%" test matches when the value divides evenly by the constant.',
@@ -244,6 +249,7 @@ export const PUZZLE_DEFS = [
       'Delay the stream by three positions. The first three outputs are 0, then the input values follow, ' +
       'and the last three inputs are never emitted. The output is exactly as long as the input.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT', 'FILTER', 'SINK'],
     par: { cycles: 48, chips: 2 },
     hints: [
       'A QUEUE preloaded with three zeros behaves as a three-stage shift register.',
@@ -262,6 +268,7 @@ export const PUZZLE_DEFS = [
     brief:
       'The input arrives in two blocks of ten. Emit each block backwards: values 10..1, then values 20..11.',
     grid: { cols: 4, rows: 3 },
+    allowed: ['CORE', 'QUEUE', 'SPLIT', 'FILTER', 'SINK', 'STACK'],
     par: { cycles: 142, chips: 2 },
     hints: [
       'A STACK returns values newest-first — that is a reversal for free.',

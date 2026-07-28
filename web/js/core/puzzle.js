@@ -7,6 +7,7 @@
 import { Rng } from '../util/rng.js';
 import { DEFAULT_CODE_LINES } from './isa.js';
 import { DEFAULT_MAX_CYCLES } from './machine.js';
+import { PLACEABLE_TYPES } from './chips.js';
 
 /**
  * Turn a raw definition into a runnable puzzle with stable dock ids.
@@ -49,6 +50,18 @@ export function compilePuzzle(def) {
   return puzzle;
 }
 
+/**
+ * Compile the library in order and work out which chips each assignment
+ * introduces. Chips unlock on the puzzle that teaches them and stay unlocked,
+ * so the palette grows one tool at a time instead of arriving all at once.
+ */
 export function compileAll(defs) {
-  return defs.map(compilePuzzle);
+  const puzzles = defs.map(compilePuzzle);
+  const unlocked = new Set();
+  for (const p of puzzles) {
+    const available = p.allowed || PLACEABLE_TYPES;
+    p.newChips = available.filter((t) => !unlocked.has(t));
+    for (const t of available) unlocked.add(t);
+  }
+  return puzzles;
 }

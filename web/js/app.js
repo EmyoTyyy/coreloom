@@ -193,16 +193,26 @@ class App {
     this.refreshAll();
   }
 
-  /** Drop anything a saved design refers to that this puzzle no longer offers. */
+  /**
+   * Drop anything a saved design refers to that this puzzle no longer offers.
+   * Silently deleting a player's work is unacceptable, so anything removed is
+   * reported rather than just vanishing between sessions.
+   */
   migrateLayout() {
     const allowed = this.puzzle.allowed;
+    const dropped = [];
     this.layout.chips = this.layout.chips.filter((c) => {
       if (!CHIP_TYPES[c.type]) return false;
-      if (allowed && !allowed.includes(c.type)) return false;
+      if (allowed && !allowed.includes(c.type)) { dropped.push(c.type); return false; }
       return c.c < this.puzzle.grid.cols && c.r < this.puzzle.grid.rows;
     });
     const live = new Set([...this.layout.chips.map((c) => c.id), ...this.puzzle.docks.map((d) => d.id)]);
     this.layout.wires = this.layout.wires.filter((w) => live.has(w.from[0]) && live.has(w.to[0]));
+
+    if (dropped.length) {
+      const names = [...new Set(dropped)].join(', ');
+      toast(`${names} is not available on this assignment — removed from your saved design`, 'warn', 6000);
+    }
   }
 
   // --------------------------------------------------------------- simulation

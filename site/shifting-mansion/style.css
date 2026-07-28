@@ -325,3 +325,21 @@ html, body {
   border-bottom: 1px solid currentColor;
 }
 .back-home:hover { opacity: 1; }
+
+/* an <a> wearing .btn has to be told to behave like one */
+a.btn { display: inline-block; text-decoration: none; text-align: center; }
+
+/* the in-game one lives in the top bar, and saves on the way out */
+.home-btn {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 5px 9px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: color .15s, border-color .15s;
+}
+.home-btn:hover { color: var(--gold); border-color: var(--border-lit); }

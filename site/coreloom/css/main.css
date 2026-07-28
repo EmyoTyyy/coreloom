@@ -45,14 +45,18 @@ button { font-family: inherit; font-size: inherit; color: inherit; cursor: point
   background: var(--bg-panel);
   border-bottom: 1px solid var(--line);
 }
-.brand {
-  display: flex; align-items: center; gap: 8px;
-  text-decoration: none; color: inherit;
-  padding: 4px 8px; margin-left: -8px; border-radius: 4px;
+/* the way back to the shelf this game sits on */
+.home-btn {
+  display: flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--text-dim);
+  padding: 4px 9px;
+  border: 1px solid var(--line); border-radius: 4px;
+  font-size: 11px; letter-spacing: 1px; white-space: nowrap;
+  transition: color .12s, border-color .12s, background .12s;
 }
-.brand:hover { background: var(--bg-panel-2); }
-.brand:hover .brand-back { color: var(--accent); }
-.brand-back { color: var(--text-faint); font-size: 13px; transition: color .12s; }
+.home-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--bg-panel-2); }
+.home-arrow { font-size: 12px; }
+.brand { display: flex; align-items: center; gap: 8px; }
 .brand-mark { color: var(--accent); font-size: 16px; }
 .brand-name { letter-spacing: 3px; font-weight: 700; font-size: 13px; }
 .topbar-mid { flex: 1; color: var(--text-dim); letter-spacing: 2px; font-size: 11px; }

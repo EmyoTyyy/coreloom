@@ -79,6 +79,11 @@ function bindMenu() {
   for (const el of document.querySelectorAll(".js-back-menu")) {
     el.addEventListener("click", () => UI.showScreen(GAME.player ? "game" : "menu"));
   }
+  // leaving for EmyoT.Fun mid-run shouldn't cost you the run — the link
+  // navigates as normal, we just get a save in first.
+  for (const el of document.querySelectorAll(".js-home-save")) {
+    el.addEventListener("click", () => { if (GAME.player) Save.save(GAME); });
+  }
   for (const el of document.querySelectorAll(".js-close-note")) {
     el.addEventListener("click", () => UI.hideNote());
   }

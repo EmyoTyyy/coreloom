@@ -57,6 +57,7 @@ function init() {
   bindGameInput();
   refreshContinueButton();
   UI.showScreen("menu");
+  UI.preloadRoomArt();
   startRenderLoop();
 }
 

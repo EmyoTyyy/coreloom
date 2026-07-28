@@ -52,6 +52,17 @@ html, body {
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+/* the house itself, behind the title — loaded only when the menu is shown */
+.screen--menu, .screen--end {
+  background-image:
+    radial-gradient(ellipse at 50% 45%, rgba(5,5,8,.30) 0%, rgba(4,4,6,.62) 48%, rgba(3,3,5,.92) 100%),
+    url("img/_mansion.webp");
+  background-size: cover, cover;
+  background-position: center, center 42%;
+}
+/* let the house show through the card instead of blanking it out */
+.screen--menu .menu-box, .screen--end .end-box { background: rgba(9,9,14,.72); }
+
 /* ---------- Buttons ----------------------------------------------- */
 .btn {
   font-family: var(--sans);
@@ -188,6 +199,7 @@ html, body {
   width: 290px;
   display: flex; flex-direction: column; gap: 8px;
   min-height: 0;
+  overflow-y: auto;
 }
 .panel-block {
   background: var(--bg-panel);
@@ -195,8 +207,27 @@ html, body {
   border-radius: 6px;
   padding: 10px 12px;
 }
-.panel-block--grow { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.panel-block--grow { flex: 1; min-height: 96px; display: flex; flex-direction: column; overflow: hidden; }
 .panel-h { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-faint); margin-bottom: 8px; }
+/* one painting per room type, lit according to what you can actually see */
+.room-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* capped so the painting never starves the inventory and clue lists
+     below it on a short window */
+  max-height: 148px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: filter .6s ease;
+}
+.room-art[hidden] { display: none; }
+.room-art--unlit { filter: brightness(.34) contrast(.92); }
+.room-art--mad { filter: saturate(.35) contrast(1.18) hue-rotate(-14deg); }
+.room-art--unlit.room-art--mad { filter: brightness(.3) saturate(.35) contrast(1.1); }
+
 .room-name { font-family: var(--serif); font-size: 19px; color: #d9d2c4; margin-bottom: 6px; }
 .room-desc { color: var(--ink-dim); line-height: 1.5; font-style: italic; font-family: var(--serif); }
 .dim { color: var(--ink-faint); font-weight: normal; }

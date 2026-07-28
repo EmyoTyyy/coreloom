@@ -84,12 +84,42 @@ const UI = (() => {
     $("room-desc").textContent = desc;
     $("room-name").style.color = room.type === "safe" ? "#7fa8e0"
       : room.cursed ? "#b79ad8" : room.type === "final" ? "#e0786a" : "";
+    setRoomArt(room, p, name);
 
     renderInteractions(g, room);
     renderInventory(g);
     renderClues(g);
     updateProximityFx(g);
     if (g.debug) updateDebug(g);
+  }
+
+  /* ---- room art --------------------------------------------------
+     One painting per room type in img/. The panel obeys the same
+     darkness rule the game does: an unlit dark room is barely visible
+     here either, so a candle actually shows you the room.
+     Any room type without a file just falls back to no image.        */
+  function setRoomArt(room, p, name) {
+    const img = $("room-art");
+    const src = "img/" + room.type + ".webp";
+    if (!img.getAttribute("src") || !img.getAttribute("src").endsWith(src)) {
+      img.onerror = () => { img.hidden = true; };
+      img.onload = () => { img.hidden = false; };
+      img.src = src;
+    }
+    img.alt = name;
+    const unlit = (room.light === "dark" || room.light === "pitch") && p.candleTurns <= 0;
+    img.classList.toggle("room-art--unlit", unlit);
+    img.classList.toggle("room-art--mad", p.sanity < CONFIG.SANITY_LOW);
+  }
+
+  /** Pull every room painting into cache once a run starts, so moving
+      between rooms never waits on the network. The whole set is ~180 KB. */
+  function preloadRoomArt() {
+    const load = () => {
+      for (const type in ROOM_TYPES) new Image().src = "img/" + type + ".webp";
+    };
+    if (window.requestIdleCallback) requestIdleCallback(load, { timeout: 4000 });
+    else setTimeout(load, 1500);
   }
 
   /* ---- interaction buttons -------------------------------------- */
@@ -285,6 +315,6 @@ const UI = (() => {
   return {
     showScreen, log, renderLog, refresh, showNote, hideNote,
     showTransition, flashDamage, shake, phaseHint,
-    updateDebug, toggleDebug,
+    updateDebug, toggleDebug, preloadRoomArt,
   };
 })();

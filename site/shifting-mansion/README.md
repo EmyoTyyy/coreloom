@@ -49,7 +49,11 @@ red-tinted doors are locked, the salt-blue room is the Safe Room.
   always reachable, and locks only ever sit on spanning-tree leaves.
 - **Nightly rearrangement** (5 nights): new layout, doors, items and entity
   spawn each night, while clues, story progress and carried items persist.
-- **21 room types** with multiple descriptions each, light levels and curses.
+- **22 room types** with multiple descriptions each, light levels and curses.
+- **A painting for every room type**, shown in the side panel. It obeys the
+  game's own darkness rule: in an unlit dark room the painting is dimmed too, so
+  lighting a candle genuinely shows you where you are — and at low sanity the
+  colour drains out of it along with everything else.
 - **Turn-based loop**: every action advances time through four night phases
   (Early Night → Midnight → Witching Hour → Dawn).
 - **Stalking entity** with 5 states (dormant/wandering/hunting/chasing/
@@ -85,7 +89,13 @@ render.js        canvas rendering (map, fog, player, entity)
 ui.js           DOM panels, log, overlays, screens
 save.js         localStorage save/load (degrades gracefully)
 main.js         GameState, input, turn pipeline, nights, endings, debug
+img/            one painting per room type + the exterior behind the menu
 ```
+
+The paintings are AI-generated (Higgsfield `z_image`), then put through one
+fixed colour grade so 23 separate generations read as a single set. They are
+560×315 WebP, about 180 KB for the lot, and the whole set is pulled into cache
+when the menu opens so moving between rooms never waits on the network.
 
 ## Possible future improvements
 

@@ -45,11 +45,17 @@ server.js                local dev server, not part of the site
 site/                    everything that gets published
   index.html             the home page
   css/ js/ img/          home page assets
+  fonts/                 self-hosted Poppins (SIL OFL)
   coreloom/              game — see its own README
   shifting-mansion/      game — see its own README
 tests/                   Coreloom's test suite
 media/                   screenshots for the READMEs (not published)
 ```
+
+The site makes **no third-party requests** — the typeface is served from this
+repository rather than a font CDN, so loading the page does not announce a
+visitor to anyone else. It follows your system light/dark preference, and the
+switch in the corner overrides it and remembers the choice.
 
 ## Adding a game
 

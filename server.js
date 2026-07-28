@@ -1,4 +1,4 @@
-// CORELOOM static server. Zero dependencies.
+// EmyoT.Fun static server. Zero dependencies. Serves site/ the way Pages does.
 // Usage: node server.js [port]
 
 import http from 'node:http';
@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'web');
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'site');
 const PORT = Number(process.argv[2] || process.env.PORT || 7331);
 
 const MIME = {
@@ -16,29 +16,41 @@ const MIME = {
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
 };
 
-const server = http.createServer((req, res) => {
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  if (urlPath === '/') urlPath = '/index.html';
+const send = (res, code, body, type = 'text/plain; charset=utf-8') =>
+  res.writeHead(code, { 'content-type': type, 'cache-control': 'no-cache' }).end(body);
 
-  const filePath = path.join(ROOT, path.normalize(urlPath).replace(/^(\.\.[/\\])+/, ''));
-  if (!filePath.startsWith(ROOT)) {
-    res.writeHead(403).end('forbidden');
-    return;
-  }
-
+const serveFile = (res, filePath) => {
   fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404, { 'content-type': 'text/plain' }).end('404 not found');
-      return;
+    if (err) return send(res, 404, '404 not found');
+    return send(res, 200, data, MIME[path.extname(filePath)] || 'application/octet-stream');
+  });
+};
+
+const server = http.createServer((req, res) => {
+  const urlPath = decodeURIComponent(req.url.split('?')[0]);
+  const filePath = path.join(ROOT, path.normalize(urlPath).replace(/^(\.\.[/\\])+/, ''));
+  if (!filePath.startsWith(ROOT)) return send(res, 403, 'forbidden');
+
+  // Mirror GitHub Pages: a directory serves its index.html, and a directory
+  // requested without a trailing slash redirects so that relative asset paths
+  // inside the page resolve against the directory rather than its parent.
+  fs.stat(filePath, (err, stat) => {
+    if (!err && stat.isDirectory()) {
+      if (!urlPath.endsWith('/')) {
+        res.writeHead(301, { location: `${urlPath}/` }).end();
+        return;
+      }
+      return serveFile(res, path.join(filePath, 'index.html'));
     }
-    res.writeHead(200, {
-      'content-type': MIME[path.extname(filePath)] || 'application/octet-stream',
-      'cache-control': 'no-cache',
-    }).end(data);
+    return serveFile(res, filePath);
   });
 });
 

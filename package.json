@@ -1,9 +1,9 @@
 {
-  "name": "coreloom",
+  "name": "emyot-fun",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "CORELOOM - a concurrent dataflow programming puzzle game",
+  "description": "EmyoT.Fun — a small collection of browser games",
   "scripts": {
     "start": "node server.js",
     "test": "node tests/run.js"

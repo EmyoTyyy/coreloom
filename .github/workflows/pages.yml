@@ -46,7 +46,7 @@ jobs:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
-          # the game is everything under web/; server.js is local-only
-          path: web
+          # the whole site: the hub page plus every game folder
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4

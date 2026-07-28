@@ -45,7 +45,14 @@ button { font-family: inherit; font-size: inherit; color: inherit; cursor: point
   background: var(--bg-panel);
   border-bottom: 1px solid var(--line);
 }
-.brand { display: flex; align-items: center; gap: 8px; }
+.brand {
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; color: inherit;
+  padding: 4px 8px; margin-left: -8px; border-radius: 4px;
+}
+.brand:hover { background: var(--bg-panel-2); }
+.brand:hover .brand-back { color: var(--accent); }
+.brand-back { color: var(--text-faint); font-size: 13px; transition: color .12s; }
 .brand-mark { color: var(--accent); font-size: 16px; }
 .brand-name { letter-spacing: 3px; font-weight: 700; font-size: 13px; }
 .topbar-mid { flex: 1; color: var(--text-dim); letter-spacing: 2px; font-size: 11px; }

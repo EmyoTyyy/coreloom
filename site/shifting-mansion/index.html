@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Shifting Mansion</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ============================================================= -->
+  <!-- START MENU                                                     -->
+  <!-- ============================================================= -->
+  <section id="screen-menu" class="screen screen--menu active">
+    <div class="menu-box">
+      <h1 class="game-logo">The&nbsp;Shifting&nbsp;Mansion</h1>
+      <p class="menu-tagline">Every night, the house remembers something new.</p>
+      <div class="menu-buttons">
+        <button id="btn-new-game" class="btn btn--big">New Game</button>
+        <button id="btn-continue" class="btn btn--big" disabled>Continue</button>
+        <button id="btn-how-to" class="btn btn--big">How to Play</button>
+        <button id="btn-reset-save" class="btn btn--ghost">Reset Save</button>
+      </div>
+      <p class="menu-footer">A small browser horror prototype &middot; keyboard + mouse</p>
+      <p class="menu-footer"><a class="back-home" href="../">&larr; back to EmyoT.Fun</a></p>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- HOW TO PLAY                                                    -->
+  <!-- ============================================================= -->
+  <section id="screen-help" class="screen screen--help">
+    <div class="help-box">
+      <h2 class="screen-title">How to Play</h2>
+      <div class="help-grid">
+        <div>
+          <h3>Goal</h3>
+          <p>Explore the cursed mansion, collect clues and keys, survive the nights,
+             uncover the truth, and escape. The mansion rearranges itself every night.</p>
+          <h3>Controls</h3>
+          <ul>
+            <li><b>W A S D / Arrows</b> — move room to room through doors</li>
+            <li><b>Shift + move</b> — sprint (faster, but noisy &amp; frightening)</li>
+            <li><b>E</b> — interact / pick up / read</li>
+            <li><b>I</b> — toggle inventory focus</li>
+            <li><b>M</b> — toggle map &amp; help overlay</li>
+            <li><b>Space</b> — wait (let time pass)</li>
+            <li><b>Esc</b> — pause</li>
+            <li><b>~</b> — toggle debug tools</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Survival</h3>
+          <ul>
+            <li>Darkness drains <span class="t-danger">sanity</span> and raises fear.</li>
+            <li>The <span class="t-danger">entity</span> is drawn to noise, fear, and dark rooms.</li>
+            <li><span class="t-safe">Safe Rooms</span> restore calm — the entity cannot enter.</li>
+            <li>Candles + matches widen your sight and steady your nerves.</li>
+            <li>Clues unlock better endings. Find <b>8+</b> important clues plus the
+                Mirror Shard and Basement Emblem for the true ending.</li>
+          </ul>
+          <h3>The Nights</h3>
+          <ul>
+            <li>Each night has an objective shown in the top bar.</li>
+            <li>When the night ends, the mansion shifts — layout, doors and items change.</li>
+            <li>Your clues, story progress and carried items persist.</li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn btn--big js-back-menu">Back</button>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- MAIN GAME                                                      -->
+  <!-- ============================================================= -->
+  <section id="screen-game" class="screen screen--game">
+
+    <!-- Top bar -->
+    <header id="topbar">
+      <div class="top-title">The Shifting Mansion</div>
+      <div class="top-stats">
+        <div class="stat"><span class="stat-label">Night</span><span id="stat-night" class="stat-val">1</span></div>
+        <div class="stat"><span class="stat-label">Phase</span><span id="stat-phase" class="stat-val">Early Night</span></div>
+        <div class="stat stat--bar">
+          <span class="stat-label">Health</span>
+          <span class="bar"><span id="bar-health" class="bar-fill bar-fill--health"></span></span>
+        </div>
+        <div class="stat stat--bar">
+          <span class="stat-label">Sanity</span>
+          <span class="bar"><span id="bar-sanity" class="bar-fill bar-fill--sanity"></span></span>
+        </div>
+        <div class="stat stat--bar">
+          <span class="stat-label">Fear</span>
+          <span class="bar"><span id="bar-fear" class="bar-fill bar-fill--fear"></span></span>
+        </div>
+        <div class="stat"><span class="stat-label">Keys</span><span id="stat-keys" class="stat-val">0</span></div>
+      </div>
+      <div class="top-objective">
+        <span class="stat-label">Objective</span>
+        <span id="stat-objective" class="objective-text">&mdash;</span>
+      </div>
+    </header>
+
+    <!-- Center + right panel -->
+    <main id="game-main">
+      <div id="canvas-wrap">
+        <canvas id="game-canvas" width="720" height="520"></canvas>
+        <div id="damage-flash"></div>
+        <div id="phase-hint" class="phase-hint"></div>
+
+        <!-- Debug overlay -->
+        <div id="debug-panel" class="debug-panel hidden">
+          <div class="debug-title">DEBUG</div>
+          <div id="debug-info"></div>
+          <div class="debug-buttons">
+            <button class="btn btn--mini" data-debug="key">+Key</button>
+            <button class="btn btn--mini" data-debug="clue">+Clue</button>
+            <button class="btn btn--mini" data-debug="damage">-HP</button>
+            <button class="btn btn--mini" data-debug="sanity">-San</button>
+            <button class="btn btn--mini" data-debug="night">+Night</button>
+            <button class="btn btn--mini" data-debug="hunt">Hunt</button>
+          </div>
+        </div>
+      </div>
+
+      <aside id="right-panel">
+        <div class="panel-block">
+          <h3 id="room-name" class="room-name">&mdash;</h3>
+          <p id="room-desc" class="room-desc">&mdash;</p>
+        </div>
+
+        <div class="panel-block">
+          <h4 class="panel-h">Interactions</h4>
+          <div id="interactions" class="interactions"></div>
+        </div>
+
+        <div class="panel-block panel-block--grow">
+          <h4 class="panel-h">Inventory <span id="inv-count" class="dim">(0)</span></h4>
+          <ul id="inventory-list" class="inventory-list"></ul>
+        </div>
+
+        <div class="panel-block panel-block--grow">
+          <h4 class="panel-h">Clues <span id="clue-count" class="dim">(0)</span></h4>
+          <ul id="clue-list" class="clue-list"></ul>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Bottom log -->
+    <footer id="bottom-panel">
+      <h4 class="panel-h">Event Log</h4>
+      <ul id="event-log" class="event-log"></ul>
+    </footer>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- OVERLAYS                                                       -->
+  <!-- ============================================================= -->
+
+  <!-- Note / clue reader -->
+  <div id="note-overlay" class="overlay hidden">
+    <div class="note-paper">
+      <h3 id="note-title" class="note-title"></h3>
+      <p id="note-text" class="note-text"></p>
+      <button class="btn js-close-note">Close</button>
+    </div>
+  </div>
+
+  <!-- Mansion shift transition -->
+  <div id="transition-overlay" class="overlay transition hidden">
+    <div class="transition-inner">
+      <h2 id="transition-title" class="transition-title">The mansion shifts around you&hellip;</h2>
+      <ul id="transition-log" class="transition-log"></ul>
+    </div>
+  </div>
+
+  <!-- Pause -->
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="menu-box">
+      <h2 class="screen-title">Paused</h2>
+      <div class="menu-buttons">
+        <button id="btn-resume" class="btn btn--big">Resume</button>
+        <button id="btn-save" class="btn btn--big">Save Game</button>
+        <button id="btn-pause-help" class="btn btn--big">How to Play</button>
+        <button id="btn-quit-menu" class="btn btn--ghost">Quit to Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game over -->
+  <section id="screen-gameover" class="screen screen--end">
+    <div class="end-box end-box--death">
+      <h2 id="gameover-title" class="end-title">Taken by the House</h2>
+      <p id="gameover-cause" class="end-cause"></p>
+      <ul id="gameover-stats" class="end-stats"></ul>
+      <button id="btn-restart-death" class="btn btn--big">Try Again</button>
+    </div>
+  </section>
+
+  <!-- Ending -->
+  <section id="screen-ending" class="screen screen--end">
+    <div class="end-box end-box--ending">
+      <h2 id="ending-title" class="end-title">The Door Opens</h2>
+      <p id="ending-text" class="end-story"></p>
+      <ul id="ending-stats" class="end-stats"></ul>
+      <button id="btn-restart-end" class="btn btn--big">Play Again</button>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SCRIPTS (order matters — no build step / no modules)           -->
+  <!-- ============================================================= -->
+  <script src="rng.js"></script>
+  <script src="data.js"></script>
+  <script src="generation.js"></script>
+  <script src="player.js"></script>
+  <script src="entity.js"></script>
+  <script src="render.js"></script>
+  <script src="ui.js"></script>
+  <script src="save.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

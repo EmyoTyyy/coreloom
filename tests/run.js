@@ -8,11 +8,11 @@
 // Layer 3 is the important one: it is what proves the puzzle library is
 // solvable within the chip set, the board size and the per-core line limits.
 
-import { assemble } from '../web/js/core/assembler.js';
-import { Machine, verify, measure, validateLayout, HALT } from '../web/js/core/machine.js';
-import { compileAll } from '../web/js/core/puzzle.js';
-import { PUZZLE_DEFS } from '../web/js/data/puzzles.js';
-import { Rng } from '../web/js/util/rng.js';
+import { assemble } from '../site/coreloom/js/core/assembler.js';
+import { Machine, verify, measure, validateLayout, HALT } from '../site/coreloom/js/core/machine.js';
+import { compileAll } from '../site/coreloom/js/core/puzzle.js';
+import { PUZZLE_DEFS } from '../site/coreloom/js/data/puzzles.js';
+import { Rng } from '../site/coreloom/js/util/rng.js';
 import { SOLUTIONS, layout } from './solutions.js';
 
 let passed = 0;

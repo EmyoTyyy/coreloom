@@ -23,6 +23,15 @@ const GAMES = [
     blurb: 'A cursed house that rearranges itself every night. Explore room by room, gather keys and clues, manage your sanity, and stay ahead of the thing stalking you. Five nights.',
   },
   {
+    title: 'The Drowned Lexicon',
+    href: 'drowned-lexicon/',
+    img: 'img/lexicon.webp',
+    accent: '#b07d33',
+    accentDark: '#e2a850',
+    kind: 'Decipherment',
+    blurb: 'Ninety signs of a dead script, seventy-two days, and no dictionary. Work out what each one means from the clay tablets alone. Every seed writes a different language, so nobody has solved yours before.',
+  },
+  {
     title: 'Detour',
     href: 'https://emyotyyy.github.io/detour/',
     img: 'img/detour.webp',

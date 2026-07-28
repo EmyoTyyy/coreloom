@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Drowned Lexicon — A Decipherment of Tel Vaskir</title>
+<meta name="description" content="Reconstruct a procedurally generated dead language from the clay tablets of a sunken bronze-age city.">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+<!-- ============================ TITLE SCREEN ============================ -->
+<div id="title">
+  <div class="bg"><img src="assets/hero.webp" alt=""></div>
+  <div class="inner">
+    <div class="glyphrain" id="titleglyphs"></div>
+    <div class="tt">The Drowned Lexicon</div>
+    <div class="ts">A Decipherment of Tel&nbsp;Vaskir</div>
+    <p class="blurb">
+      The lagoon city of Tel Vaskir sank in a single night, three thousand years ago.
+      Its archive survived in clay. Its language did not.<br><br>
+      You have seventy-two days before the monsoon closes the site forever. No dictionary exists.
+      No one alive has heard a word of Old Vaskiri spoken. You have a trowel, a lamp, and the
+      assumption that the people who wrote these tablets were as reasonable as you are.
+    </p>
+    <div class="seedrow">
+      <span class="label">Excavation seed</span>
+      <input id="seedin" maxlength="18" aria-label="Excavation seed">
+      <button class="btn sm" id="reroll" title="New seed">&#8635;</button>
+    </div>
+    <div class="seedrow">
+      <button class="btn primary" id="startbtn" style="padding:10px 28px;font-size:14px">Begin the Season</button>
+      <button class="btn" id="contbtn" style="padding:10px 20px">Resume Excavation</button>
+      <button class="btn" id="manualbtn0" style="padding:10px 20px">Field Manual</button>
+    </div>
+    <div class="foot">Each seed generates a different language: new script, new grammar, new words.</div>
+    <div class="foot"><a class="home-link" href="../">&larr; back to EmyoT.Fun</a></div>
+  </div>
+</div>
+
+<!-- =============================== THE GAME ============================ -->
+<div id="app" class="hide">
+  <header id="top">
+    <div class="brand">
+      <h1>The Drowned Lexicon</h1>
+      <div class="sub">Tel Vaskir &middot; Season I</div>
+    </div>
+    <div class="hstats" id="stats"></div>
+    <div class="hactions">
+      <button class="btn sm" id="manualbtn">Manual</button>
+      <button class="btn sm" id="menubtn">Menu</button>
+      <a class="btn sm home-btn" href="../" title="Back to EmyoT.Fun">&larr; EmyoT.Fun</a>
+    </div>
+  </header>
+  <nav id="tabs"></nav>
+  <main id="main"></main>
+</div>
+
+<!-- ================================ CODE =============================== -->
+<!-- Plain classic scripts, loaded in dependency order, so the game runs from
+     a file:// URL with no build step and no local server. -->
+<script src="js/rng.js"></script>
+<script src="js/concepts.js"></script>
+<script src="js/glyphs.js"></script>
+<script src="js/language.js"></script>
+<script src="js/tablets.js"></script>
+<script src="js/content.js"></script>
+<script src="js/world.js"></script>
+<script src="js/state.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/view-excavation.js"></script>
+<script src="js/view-finds.js"></script>
+<script src="js/view-lexicon.js"></script>
+<script src="js/view-journal.js"></script>
+<script src="js/view-vault.js"></script>
+<script src="js/ending.js"></script>
+<script src="js/manual.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

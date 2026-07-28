@@ -13,6 +13,7 @@ nothing to install, no account, no ads, and saves never leave your machine.
 |---|---|---|
 | **[Coreloom](site/coreloom/)** | A programming puzzle. Place chips, wire their ports, write assembly to turn one stream of numbers into another. 23 assignments. | in this repo |
 | **[The Shifting Mansion](site/shifting-mansion/)** | Top-down horror exploration. A cursed house that rearranges itself every night, across five nights. | in this repo |
+| **[The Drowned Lexicon](site/drowned-lexicon/)** | Decipherment. Ninety signs of a dead script and no dictionary — work the language out from the clay tablets alone. Each seed generates a different language. | in this repo |
 | **Detour** | A 1v1 tactical race on a 9×9 board — move, or wall your opponent into the long way around. | [its own repo](https://github.com/EmyoTyyy/detour) |
 
 Detour is linked from the home page rather than copied in, so it stays a single
@@ -32,7 +33,8 @@ gets published.
 
 You do need a server rather than opening the files off the disk: Coreloom uses
 ES modules, which browsers refuse to load over `file://`. (The Shifting Mansion
-uses classic scripts and will open directly, if you only want that one.)
+and The Drowned Lexicon use classic scripts and will open directly, if you only
+want those.)
 
 ```
 npm test           # Coreloom's engine tests + a solution for all 23 assignments
@@ -48,6 +50,7 @@ site/                    everything that gets published
   fonts/                 self-hosted Poppins (SIL OFL)
   coreloom/              game — see its own README
   shifting-mansion/      game — see its own README
+  drowned-lexicon/       game — see its own README
 tests/                   Coreloom's test suite
 media/                   screenshots for the READMEs (not published)
 ```

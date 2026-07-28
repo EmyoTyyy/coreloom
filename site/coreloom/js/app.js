@@ -100,6 +100,9 @@ class App {
 
     $('#btn-isa').addEventListener('click', () => this.showModal(isaModal()));
     $('#btn-tour').addEventListener('click', () => this.startTour());
+    $('#btn-nav').addEventListener('click', () => this.toggleDrawer('nav'));
+    $('#btn-info').addEventListener('click', () => this.toggleDrawer('info'));
+    $('#scrim').addEventListener('click', () => this.closeDrawers());
     $('#btn-fit').addEventListener('click', () => this.board.fit());
     $('#btn-clear').addEventListener('click', () => this.clearBoard());
     $('#btn-export').addEventListener('click', () => this.exportDesign());
@@ -151,6 +154,8 @@ class App {
         case 'Enter': this.runVerify(); break;
         case 'Escape':
           if (this.modal.classList.contains('open')) this.hideModal();
+          else if (document.body.classList.contains('nav-open')
+            || document.body.classList.contains('info-open')) this.closeDrawers();
           else { this.board.armedType = null; this.refreshPalette(); }
           break;
         case '?': this.showModal(isaModal()); break;
@@ -163,6 +168,18 @@ class App {
   }
 
   // ------------------------------------------------------------------ puzzles
+
+  /** On narrow screens the sidebar and rail slide over the board instead of beside it. */
+  toggleDrawer(which) {
+    const cls = which === 'nav' ? 'nav-open' : 'info-open';
+    const wasOpen = document.body.classList.contains(cls);
+    this.closeDrawers();
+    if (!wasOpen) document.body.classList.add(cls);
+  }
+
+  closeDrawers() {
+    document.body.classList.remove('nav-open', 'info-open');
+  }
 
   /** The walkthrough teaches on the first assignment, so make sure we are on it. */
   startTour() {
@@ -178,6 +195,7 @@ class App {
     // leaving it pointing at chips that are no longer on screen
     if (this.tutor?.active && id !== 'relay') this.tutor.stop(true);
     this.puzzle = this.byId.get(id);
+    this.closeDrawers();
     this.layout = store.loadDesign(id) || emptyLayout();
     this.migrateLayout();
     this.testIndex = 0;

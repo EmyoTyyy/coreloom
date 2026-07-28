@@ -435,7 +435,9 @@ ul.notes li.bad { color: var(--bad); }
 }
 
 #tutor-card {
-  position: fixed; width: 336px;
+  position: fixed;
+  width: 336px;
+  max-width: calc(100vw - 28px);
   padding: 15px 17px 14px;
   background: #101820;
   border: 1px solid #2c3f4d;
@@ -519,4 +521,67 @@ ul.notes li.bad { color: var(--bad); }
 
 @media (max-width: 1280px) {
   :root { --rail-w: 300px; --side-w: 196px; }
+}
+
+/* ------------------------------------------------------------------ narrow */
+
+/* The drawer buttons only exist below the breakpoint. */
+.drawer-btn { display: none; font-size: 15px; padding: 4px 9px; }
+#scrim { display: none; }
+
+/*
+ * Two fixed side columns plus a flexible middle cannot survive a phone: the
+ * middle track collapses to nothing and the canvas gets allocated as a sliver,
+ * which mobile browsers discard entirely. Below this width the sides become
+ * overlay drawers so the board always has the full viewport to draw into.
+ */
+@media (max-width: 960px) {
+  #shell { grid-template-columns: minmax(0, 1fr); }
+
+  #sidebar, #rail {
+    position: fixed;
+    top: 0; bottom: 0;
+    width: min(86vw, 330px);
+    z-index: 40;
+    transition: transform .22s cubic-bezier(.2,.8,.3,1);
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+  }
+  #sidebar { left: 0; transform: translateX(-102%); }
+  #rail { right: 0; transform: translateX(102%); }
+  body.nav-open #sidebar,
+  body.info-open #rail { transform: none; }
+
+  #scrim {
+    display: block;
+    position: fixed; inset: 0; z-index: 35;
+    background: rgba(4,7,9,.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity .22s;
+  }
+  body.nav-open #scrim,
+  body.info-open #scrim { opacity: 1; pointer-events: auto; }
+
+  .drawer-btn { display: inline-flex; }
+  .topbar-mid { text-align: center; }
+  /* the long-form actions live in the manual on small screens */
+  #btn-clear, #btn-export, #btn-import { display: none; }
+
+  #editor-panel { height: 208px; }
+  #transport { flex-wrap: wrap; gap: 5px; }
+  .readout { padding: 0 4px; }
+}
+
+@media (max-width: 560px) {
+  #topbar { height: auto; padding: 6px 8px; flex-wrap: wrap; gap: 6px; overflow: hidden; }
+  .brand-name { display: none; }
+  .topbar-actions { flex-wrap: wrap; }
+  /* flex-basis, not width — the base rule's `flex: 1` would otherwise win and
+     keep the title on the first row where it gets clipped */
+  .topbar-mid { flex: 1 0 100%; order: 3; font-size: 10px; text-align: left; }
+  .panel-sub { display: none; }
+  #palette { padding: 6px 8px; gap: 4px; }
+  .pal-legend { display: none; }
+  #editor-panel { height: 184px; }
+  .ed-backdrop, .ed-area { font-size: 12px; line-height: 19px; }
+  .gl { font-size: 12px; line-height: 19px; }
 }

@@ -13,6 +13,11 @@ yours to build.
 Runs in any modern browser. Nothing to install, no account, no server — your
 progress is saved locally in your own browser.
 
+On a phone or tablet the assignment list and the brief become drawers so the
+board gets the whole screen, and you can drag to pan, pinch to zoom, and drag
+between port nubs with a finger. It is honestly cramped on a small phone —
+writing assembly wants a keyboard — but it works.
+
 ---
 
 ## What you actually do

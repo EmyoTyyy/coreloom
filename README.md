@@ -3,7 +3,7 @@
 A small shelf of browser games. Everything runs entirely in the browser —
 nothing to install, no account, no ads, and saves never leave your machine.
 
-### ▶ [emyotyyy.github.io/emyot.fun](https://emyotyyy.github.io/emyot.fun/)
+### ▶ [Play in your browser](https://emyotyyy.github.io/emyot.fun/)
 
 ![The EmyoT.Fun home page](media/home.webp)
 
@@ -14,6 +14,7 @@ nothing to install, no account, no ads, and saves never leave your machine.
 | **[Coreloom](site/coreloom/)** | A programming puzzle. Place chips, wire their ports, write assembly to turn one stream of numbers into another. 23 assignments. | in this repo |
 | **[The Shifting Mansion](site/shifting-mansion/)** | Top-down horror exploration. A cursed house that rearranges itself every night, across five nights. | in this repo |
 | **[The Drowned Lexicon](site/drowned-lexicon/)** | Decipherment. Ninety signs of a dead script and no dictionary — work the language out from the clay tablets alone. Each seed generates a different language. | in this repo |
+| **[Decay Heat](site/decay-heat/)** | A reactor control room on the night shift. Analogue panels you have to turn your head to read, thirteen ways a night goes wrong, and a plant simulated honestly enough that the faults cascade on their own. | in this repo |
 | **Detour** | A 1v1 tactical race on a 9×9 board — move, or wall your opponent into the long way around. | [its own repo](https://github.com/EmyoTyyy/detour) |
 
 Detour is linked from the home page rather than copied in, so it stays a single
@@ -32,13 +33,18 @@ mirrors how GitHub Pages resolves directories, so what you see locally is what
 gets published.
 
 You do need a server rather than opening the files off the disk: Coreloom uses
-ES modules, which browsers refuse to load over `file://`. (The Shifting Mansion
-and The Drowned Lexicon use classic scripts and will open directly, if you only
-want those.)
+ES modules, which browsers refuse to load over `file://`. (The other three use
+classic scripts and will open directly, if you only want those.)
 
 ```
-npm test           # Coreloom's engine tests + a solution for all 23 assignments
+npm test           # every game's suite
 ```
+
+Currently 129 checks: Coreloom's assembler, machine semantics and a worked
+solution for all 23 assignments, plus Decay Heat's reactor physics, panel
+layout and translations. Each game's suite lives in `tests/<game>/` and runs in
+its own process, so they can differ in how they are written; `tests/run.js`
+runs them all and is what CI calls.
 
 ## Layout
 
@@ -51,7 +57,11 @@ site/                    everything that gets published
   coreloom/              game — see its own README
   shifting-mansion/      game — see its own README
   drowned-lexicon/       game — see its own README
-tests/                   Coreloom's test suite
+  decay-heat/            game — see its own README
+tests/
+  run.js                 runs every suite below
+  coreloom/              engine + a solution for all 23 assignments
+  decay-heat/            reactor physics, panel layout, both languages
 media/                   screenshots for the READMEs (not published)
 ```
 
@@ -66,6 +76,9 @@ Drop the game's folder into `site/`, then add one entry to the `GAMES` array in
 [`site/js/home.js`](site/js/home.js) with a title, blurb, accent colour and a
 screenshot in `site/img/`. Games hosted elsewhere take `external: true` and a
 full URL, and the card marks them as leaving the site.
+
+If it brings tests, put them in `tests/<game>/` and add one line to the `SUITES`
+array in [`tests/run.js`](tests/run.js).
 
 ## Deploying
 

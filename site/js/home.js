@@ -32,6 +32,15 @@ const GAMES = [
     blurb: 'Ninety signs of a dead script, seventy-two days, and no dictionary. Work out what each one means from the clay tablets alone. Every seed writes a different language, so nobody has solved yours before.',
   },
   {
+    title: 'Decay Heat',
+    href: 'decay-heat/',
+    img: 'img/decay-heat.webp',
+    accent: '#c2352b',
+    accentDark: '#e0574a',
+    kind: 'Reactor simulation',
+    blurb: 'The night shift in the control room of a pressurised water reactor. Read the gauges, work the procedures, keep it on the grid. Tripping the reactor is always safe and always costs a fortune — fourteen ways a night can go wrong.',
+  },
+  {
     title: 'Detour',
     href: 'https://emyotyyy.github.io/detour/',
     img: 'img/detour.webp',

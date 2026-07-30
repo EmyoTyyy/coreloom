@@ -5,7 +5,7 @@ correctly. Numbers arrive on the left. The same numbers, transformed the way the
 assignment demands, have to come out on the right. Everything in between is
 yours to build.
 
-### ▶ [Play it in your browser](https://emyotyyy.github.io/coreloom/)
+### ▶ [Play it in your browser](https://emyotyyy.github.io/emyot.fun/coreloom/)
 
 
 ![The board mid-run: four chips, wires carrying live values, and the selected core's program below](../../media/board.png)

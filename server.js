@@ -22,6 +22,7 @@ const MIME = {
   '.gif': 'image/gif',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.mp3': 'audio/mpeg',
 };
 
 const send = (res, code, body, type = 'text/plain; charset=utf-8') =>

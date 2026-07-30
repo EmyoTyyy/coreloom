@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Decay Heat</title>
+<meta name="description" content="A night shift in the control room of a 1000 MWe pressurised water reactor. Physics-driven, no scripted gotchas.">
+<meta name="theme-color" content="#05070a">
+<link rel="stylesheet" href="css/room.css">
+<link rel="stylesheet" href="css/panels.css">
+</head>
+<body>
+
+<canvas id="room"></canvas>
+
+<div id="overlay">
+  <div class="chev l"></div>
+  <div class="chev r"></div>
+</div>
+
+<div id="hud"></div>
+
+<div class="pane" id="phone"></div>
+<div class="pane" id="binder"></div>
+<div class="pane" id="chart"></div>
+<div id="tutor"></div>
+
+<div id="menu">
+  <div class="wrap">
+    <div class="lang"><span class="cap"></span><span class="pick"></span></div>
+    <h1>Decay Heat</h1>
+    <div class="sub">Night shift &middot; 3400 MWt pressurised water reactor</div>
+    <div class="cards"></div>
+    <div class="foot">
+      <a href="../">&larr; EmyoT.Fun</a>
+      <span>A &middot; D or arrows to turn your head &middot; TAB for cameras &middot; E to acknowledge &middot; B for procedures</span>
+      <button id="wipe">CLEAR SAVED SCORES</button>
+    </div>
+  </div>
+</div>
+
+<div id="brief"><div class="wrap"></div></div>
+<div id="debrief"></div>
+<div id="toast"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/i18n-text.js"></script>
+<script src="js/i18n-doc.js"></script>
+<script src="js/sim/steam.js"></script>
+<script src="js/sim/kinetics.js"></script>
+<script src="js/sim/decay.js"></script>
+<script src="js/sim/xenon.js"></script>
+<script src="js/sim/reactivity.js"></script>
+<script src="js/sim/thermal.js"></script>
+<script src="js/sim/instruments.js"></script>
+<script src="js/sim/plant.js"></script>
+<script src="js/scenarios/00-checkout.js"></script>
+<script src="js/scenarios/01-startup.js"></script>
+<script src="js/scenarios/02-ascension.js"></script>
+<script src="js/scenarios/03-loadfollow.js"></script>
+<script src="js/scenarios/04-cleantrip.js"></script>
+<script src="js/scenarios/05-lofw.js"></script>
+<script src="js/scenarios/06-lofw-shut.js"></script>
+<script src="js/scenarios/07-porv.js"></script>
+<script src="js/scenarios/08-sbloca.js"></script>
+<script src="js/scenarios/09-sgtr.js"></script>
+<script src="js/scenarios/10-sbo.js"></script>
+<script src="js/scenarios/11-xenon.js"></script>
+<script src="js/scenarios/12-ejection.js"></script>
+<script src="js/scenarios/13-atws.js"></script>
+<script src="js/ui/gauges.js"></script>
+<script src="js/ui/boards.js"></script>
+<script src="js/ui/annunciator.js"></script>
+<script src="js/ui/room.js"></script>
+<script src="js/ui/desk.js"></script>
+<script src="js/ui/monitor.js"></script>
+<script src="js/ui/binder.js"></script>
+<script src="js/ui/phone.js"></script>
+<script src="js/ui/chart.js"></script>
+<script src="js/ui/tutor.js"></script>
+<script src="js/ui/replay.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('wipe').addEventListener('click', function () {
+  try { localStorage.removeItem('decayheat.v1'); } catch (e) {}
+  location.reload();
+});
+</script>
+</body>
+</html>

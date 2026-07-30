@@ -1,0 +1,101 @@
+/* Instrument palette. gauges.js reads every one of these at boot; nothing on a
+   panel is allowed to hardcode a colour. */
+:root {
+  --dh-panel: #8b8778;
+  --dh-panel-hi: #a5a08e;
+  --dh-panel-lo: #55524a;
+  --dh-panel-edge: #3a382f;
+
+  --dh-bezel: #2b2d30;
+  --dh-bezel-hi: #4b4e52;
+  --dh-face: #dcd6c4;
+  --dh-face-lo: #b9b3a2;
+  --dh-ink: #1a1a18;
+  --dh-ink-dim: #5d5b54;
+  --dh-needle: #b8241c;
+  --dh-needle-alt: #1b1b1b;
+
+  --dh-lamp-red: #ff3a2e;
+  --dh-lamp-amber: #ffa42b;
+  --dh-lamp-green: #45e06a;
+  --dh-lamp-white: #f2ead6;
+  --dh-lamp-blue: #5fb8ff;
+  --dh-lamp-off: #2e2a24;
+  --dh-tile-off: #3a3630;
+
+  --dh-screen: #0d1a12;
+  --dh-screen-ink: #7dff9c;
+  --dh-paper: #efe7d2;
+  --dh-trace-1: #c8342a;
+  --dh-trace-2: #2f6fbf;
+  --dh-trace-3: #1f8f4e;
+  --dh-trace-4: #8a4bbf;
+
+  --dh-desk: #4a4238;
+  --dh-desk-hi: #635849;
+  --dh-desk-lo: #2b251d;
+  --dh-under-desk: #100e0c;
+
+  /* things left on the desk */
+  --dh-mug: #d8d2c4;
+  --dh-mug-lo: #a49c8b;
+  --dh-brew: #241408;
+  --dh-brew-hi: #4a2c15;
+  --dh-binder: #6b3a2e;
+  --dh-binder-hi: #8a4c3c;
+  --dh-torch-body: #3d4348;
+  --dh-torch-hi: #5c6469;
+  --dh-marker-y: #d9c246;
+  --dh-marker-g: #4f9e6a;
+  --dh-pen-blue: #24408a;
+  --dh-pen-red: #a2342c;
+  --dh-pencil: #c8a23c;
+  --dh-hand: #1d1712;
+  --dh-hand-rim: #7a6349;
+
+  /* a photocopied procedure, as read rather than as a user interface */
+  --dh-doc-ink: #2b2620;
+  --dh-doc-ink-dim: #6d6355;
+  --dh-doc-stamp: #a8332a;
+  --dh-doc-tab: #d6c59e;
+  --dh-doc-edge: #bdb298;
+
+  /* control hardware */
+  --dh-metal-hi: #6e6e70;
+  --dh-metal-lo: #232325;
+  --dh-metal-mid: #57565a;
+  --dh-lever: #2b2b2c;
+  --dh-knob-mark: #e8e4d8;
+  --dh-btn-ink: #ddd8cc;
+  --dh-btn-ink-lit: #140d08;
+  --dh-guard-well: #1c1b1a;
+  --dh-guard-glass: rgba(190, 190, 200, 0.30);
+  --dh-trip-hi: #ff6a5c;
+  --dh-trip-lo: #8e1810;
+  --dh-trip-dark: #5a201b;
+  --dh-nixie-bg: #141312;
+  --dh-screw: #33312b;
+  --dh-tile-lit-dim: #5a1a14;
+  --dh-tile-ink-dim: rgba(210, 203, 186, 0.30);
+  --dh-ann-bg-hi: #26241f;
+  --dh-ann-bg-lo: #141310;
+  --dh-ann-edge: #0a0908;
+
+  /* cctv scene */
+  --dh-cam-far: #3a3d40;
+  --dh-cam-mid: #26292c;
+  --dh-cam-near: #141618;
+  --dh-cam-steel: #4a4d52;
+  --dh-cam-steel-lo: #33363a;
+  --dh-cam-ink: rgba(190, 255, 205, 0.85);
+  --dh-cam-water: rgba(60, 120, 150, 0.55);
+  --dh-plot-bg: #0b0e11;
+}
+
+/* Beginning of cycle: colder-looking fluorescents, newer paint.
+   Applied by adding data-cycle="boc" to <html>; scenarios do not use it yet but
+   the hook keeps the palette in CSS rather than in the renderer. */
+:root[data-cycle="boc"] {
+  --dh-panel: #918d7d;
+  --dh-face: #e2dccb;
+}
